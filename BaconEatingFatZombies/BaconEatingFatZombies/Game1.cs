@@ -56,11 +56,11 @@ namespace BaconEatingFatZombies
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 //            background = Content.Load<Texture2D>("foto2");
-            listaZumbis.Add( new zombie(Content.Load<Texture2D>("Z_DOWN_PNG"), new Vector2(250f, 0f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(0f, 0f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_UP_PNG"), new Vector2(250f, 490f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(0f, 0f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_RIGHT_PNG"), new Vector2(0f, 100f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(0f, 0f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_RIGHT_PNG"), new Vector2(0f, 150f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(0f, 0f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_LEFT_PNG"), new Vector2(490f, 300f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(0f, 0f)));
+            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_DOWN_PNG"), new Vector2(250f, 0f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
+            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_UP_PNG"), new Vector2(250f, 400f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
+            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_RIGHT_PNG"), new Vector2(0f, 100f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
+            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_RIGHT_PNG"), new Vector2(0f, 150f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
+            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_LEFT_PNG"), new Vector2(400f, 300f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
             //sprite1.velocity = new Vector2(1, 1);
 
             // TODO: use this.Content to load your game content here
@@ -95,8 +95,10 @@ namespace BaconEatingFatZombies
 //            if (keyboard.IsKeyDown(Keys.Right))
 //                sprite1.MoveDireita();
 
-            // TODO: Add your update logic here
-            //sprite1.Move();
+            foreach (zombie sprite in listaZumbis)
+            {
+                sprite.AtualizaPosicao();
+            }
 
             base.Update(gameTime);
         }

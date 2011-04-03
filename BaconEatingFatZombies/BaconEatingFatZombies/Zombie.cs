@@ -19,6 +19,8 @@ namespace BaconEatingFatZombies
         //Esse vai guardar a posicao do bacon...
         public Vector2 positionBacon { get; set; }
 
+        private bool possoMorrer { get; set; }
+
         public zombie(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, int screensizeWidth, int screensizeHeight, Vector2 pPosBacon)
         {
             texture = newTexture;
@@ -33,6 +35,13 @@ namespace BaconEatingFatZombies
             spriteBatch.Draw(texture, position, Color.White);
         }
 
+        public Vector2 GetCenter()
+        { 
+            // O sprite do zumbi e um 62x86 entao o centro fica em 31x43
+            Vector2 inc = new Vector2(31,43);
+            return position += inc;
+        }
+
         public void MoveDireita()
         {
             velocity = new Vector2(velocity.X, 0);
@@ -42,6 +51,20 @@ namespace BaconEatingFatZombies
 
         public void AtualizaPosicao()
         {
+            if (position.X > positionBacon.X)
+                position = new Vector2(position.X - 1, position.Y);
+            else
+                position = new Vector2(position.X + 1, position.Y);
+
+            if ( position.Y > positionBacon.Y )
+                position = new Vector2(position.X, position.Y - 1);
+            else
+                position = new Vector2(position.X, position.Y + 1);
+
+            if (position.Equals(positionBacon))
+            {
+                possoMorrer = true;
+            }
 
         }
 
