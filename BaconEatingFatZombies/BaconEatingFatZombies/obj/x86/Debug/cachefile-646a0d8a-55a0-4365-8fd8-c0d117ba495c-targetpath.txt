@@ -1,4 +1,0 @@
-Content\Z_DOWN_PNG.xnb
-Content\Z_LEFT_PNG.xnb
-Content\Z_RIGHT_PNG.xnb
-Content\Z_UP_PNG.xnb
