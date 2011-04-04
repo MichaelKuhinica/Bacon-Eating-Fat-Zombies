@@ -20,6 +20,7 @@ namespace BaconEatingFatZombies
         private Texture2D background;
         private List<zombie> listaZumbis = new List<zombie>();
         private List<zombie> listaPixels = new List<zombie>();
+        private List<bullet> listaBalas = new List<bullet>();
         private KeyboardState keyboard;
         private Random random = new Random();
         private Vector2 centro;
@@ -76,7 +77,7 @@ namespace BaconEatingFatZombies
             
 
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 5; i++)
             {
                 //Obtendo uma posicao inicial aleatoria
                 initialPosition = this.GetRandomInitialLocation(zombie.larguraTextura, zombie.alturaTextura);
@@ -88,6 +89,23 @@ namespace BaconEatingFatZombies
 
                 listaZumbis.Add( new zombie(texture, initialPosition, new Vector2(62f, 86f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro) );
             }
+            Vector2 direction;
+            for (int i = 0; i < 1; i++)
+            {
+                initialPosition = new Vector2(graphics.PreferredBackBufferWidth+55, graphics.PreferredBackBufferHeight/2);
+
+                Texture2D texture = Content.Load<Texture2D>("bullet");
+                direction = new Vector2(graphics.PreferredBackBufferWidth*-1, graphics.PreferredBackBufferHeight/2);
+                listaBalas.Add(new bullet(
+                    texture, 
+                    initialPosition, 
+                    new Vector2(62f, 86f), 
+                    new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), 
+                    direction
+                ));
+            }
+
+
 
             //sprite1.velocity = new Vector2(1, 1);
 
@@ -100,6 +118,10 @@ namespace BaconEatingFatZombies
                 sprite.texture.Dispose();
             }
             foreach (zombie sprite in listaPixels)
+            {
+                sprite.texture.Dispose();
+            }
+            foreach (bullet sprite in listaBalas)
             {
                 sprite.texture.Dispose();
             }
@@ -125,6 +147,18 @@ namespace BaconEatingFatZombies
             foreach (zombie sprite in listaZumbis)
             {
                 sprite.AtualizaPosicao();
+                foreach (bullet bala in listaBalas)
+                {
+                    if (bala.BoundingBox.Intersects(sprite.BoundingBox))
+                    {
+                        sprite.MorreDiabo();
+                    }
+                }
+            }
+
+            foreach (bullet sprite in listaBalas)
+            {
+                sprite.AtualizaPosicao();
             }
 
             base.Update(gameTime);
@@ -147,6 +181,10 @@ namespace BaconEatingFatZombies
                 sprite.Draw(spriteBatch);
             }
             foreach (zombie sprite in listaPixels)
+            {
+                sprite.Draw(spriteBatch);
+            }
+            foreach (bullet sprite in listaBalas)
             {
                 sprite.Draw(spriteBatch);
             }

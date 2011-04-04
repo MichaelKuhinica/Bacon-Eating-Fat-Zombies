@@ -1,0 +1,12 @@
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\Z_DOWN_PNG.xnb
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\Z_LEFT_PNG.xnb
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\Z_RIGHT_PNG.xnb
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\Z_UP_PNG.xnb
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\pixel.xnb
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\BaconEatingFatZombies.exe
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\BaconEatingFatZombies.pdb
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\obj\x86\Debug\ResolveAssemblyReference.cache
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\obj\x86\Debug\BaconEatingFatZombies.exe
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\obj\x86\Debug\BaconEatingFatZombies.pdb
+\\psf\Home\Documents\workspace\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\bullet.xnb
