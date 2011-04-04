@@ -138,11 +138,10 @@ namespace BaconEatingFatZombies
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
             //spriteBatch.Draw(background, new Rectangle(0, 0, graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height), Color.LightGray);
             //sprite1.Draw(spriteBatch);
+
             foreach (zombie sprite in listaZumbis)
             {
                 sprite.Draw(spriteBatch);
