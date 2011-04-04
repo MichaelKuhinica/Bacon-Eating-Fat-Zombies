@@ -32,12 +32,14 @@ namespace BaconEatingFatZombies
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, GetCenter(), Color.White);
+            spriteBatch.Draw(texture, GetRealPositionTopLeft(), Color.White);
         }
 
-        public Vector2 GetCenter()
+
+        // O esquema e tratar `position` como a posicao do centro do objeto e na hora de desenhar eu diminuo esses
+        // valores de position pra pegar a posicao real (necessaria para Draw) top left da imagem...
+        public Vector2 GetRealPositionTopLeft()
         {
-            // O sprite do zumbi e um 62x86 entao o centro fica em 31x43
             Vector2 inc = new Vector2(position.X - (texture.Width / 2), position.Y - (texture.Height / 2));
             return inc;
         }
