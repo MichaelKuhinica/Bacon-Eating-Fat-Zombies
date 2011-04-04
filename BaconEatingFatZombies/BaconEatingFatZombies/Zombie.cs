@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BaconEatingFatZombies
 {
-    class zombie
+    class zombie : baseSprite
     {
 
         private const string zombie_looking_down = "Z_DOWN_PNG";
@@ -19,12 +19,6 @@ namespace BaconEatingFatZombies
         public const int alturaTextura = 86;
         public const int larguraTextura = 62;
 
-
-        public Texture2D texture { get; set; }
-        public Vector2 position { get; set; }
-        public Vector2 size { get; set; }
-        public Vector2 screensize { get; set; }
-        public Vector2 velocity { get; set; }
 
         //Esse vai guardar a posicao do bacon...
         public Vector2 positionBacon { get; set; }
@@ -38,18 +32,6 @@ namespace BaconEatingFatZombies
             size = newSize;
             screensize = new Vector2(screensizeWidth, screensizeHeight);
             positionBacon = pPosBacon;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, GetCenter(), Color.White);
-        }
-
-        public Vector2 GetCenter()
-        {
-            // O sprite do zumbi e um 62x86 entao o centro fica em 31x43
-            Vector2 inc = new Vector2(position.X - (texture.Width / 2), position.Y - (texture.Height / 2));
-            return inc;
         }
 
         public void MoveDireita()
@@ -90,12 +72,14 @@ namespace BaconEatingFatZombies
             return result;
         }
 
-        
+        public void MorreDiabo() {
+            position = new Vector2(0, 0);
+        } 
 
 
         public void AtualizaPosicao()
         {
-            float unit = 0.25f;
+            float unit = 0.55f;
 
             if (position.X > positionBacon.X)
                 position = new Vector2(position.X - unit, position.Y);
