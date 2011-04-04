@@ -13,9 +13,6 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace BaconEatingFatZombies
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
@@ -23,6 +20,11 @@ namespace BaconEatingFatZombies
         Texture2D background;
         List<zombie> listaZumbis = new List<zombie>();
         KeyboardState keyboard;
+
+        Random random = new Random();
+
+        // aqui fica o bacon
+        Vector2 centro;
 
 
         public Game1()
@@ -34,12 +36,6 @@ namespace BaconEatingFatZombies
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -47,29 +43,24 @@ namespace BaconEatingFatZombies
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
+            centro = new Vector2((Window.ClientBounds.Width / 2), (Window.ClientBounds.Height / 2));
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //            background = Content.Load<Texture2D>("foto2");
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_DOWN_PNG"), new Vector2(250f, 0f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_UP_PNG"), new Vector2(250f, 400f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_RIGHT_PNG"), new Vector2(0f, 100f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_RIGHT_PNG"), new Vector2(0f, 150f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
-            listaZumbis.Add(new zombie(Content.Load<Texture2D>("Z_LEFT_PNG"), new Vector2(400f, 300f), new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, new Vector2(250f, 250f)));
+
+            Vector2 initialPosition = new Vector2(0,0);
+            for (int i = 0; i < 25; i++)
+            {
+                initialPosition = this.GetRandomInitialLocation();
+
+                listaZumbis.Add( new zombie(Content.Load<Texture2D>(zombie.GetSprite(initialPosition)), initialPosition, new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro) );
+            }
+
             //sprite1.velocity = new Vector2(1, 1);
 
-            // TODO: use this.Content to load your game content here
         }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
@@ -126,5 +117,36 @@ namespace BaconEatingFatZombies
 
             base.Draw(gameTime);
         }
+
+
+        public Vector2 GetRandomInitialLocation()
+        {
+            
+            int y = random.Next(-100, 600);
+            int x = 0;
+
+            if (y > 0 && y < 501)
+            {
+                int lado = random.Next(2);  // exclusive upperBound
+                if (lado == 0)
+                {
+                    x = random.Next(-100, 0);
+                }
+                else
+                {
+                    x = random.Next(500, 600);
+                }
+            }
+            else
+            {
+                x = random.Next(-100, 600);
+            }
+
+            Console.WriteLine("x {0} y {1} ", x, y);
+            return new Vector2(x, y);
+
+
+        }
+
     }
 }

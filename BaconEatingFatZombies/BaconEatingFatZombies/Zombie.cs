@@ -10,6 +10,13 @@ namespace BaconEatingFatZombies
 {
     class zombie
     {
+
+        private const string zombie_looking_down = "Z_DOWN_PNG";
+        private const string zombie_looking_up = "Z_UP_PNG";
+        private const string zombie_looking_right = "Z_RIGHT_PNG";
+        private const string zombie_looking_left = "Z_LEFT_PNG";
+
+
         public Texture2D texture { get; set; }
         public Vector2 position { get; set; }
         public Vector2 size { get; set; }
@@ -49,29 +56,37 @@ namespace BaconEatingFatZombies
 
         }
 
-        public Vector2 getRandomInitialLocation()
+
+        //Baseado no quadrante vai pegar uma imagem diferente
+        public static string GetSprite( Vector2 InitialPosition )
         {
-            //Random random = new Random();
-            //int y = random.Next(-100, 600);
-            //int x = 0;
+            // hack maravilhoso pra descobrir em que setor o vetor esta.
+            // esse primeiro teste divide a matriz como se fosse uma matriz diagonal comum
+            // a reta que divide e na verdade a funcao Y = X (funcao identidade)
+            bool diagonalInferior = (InitialPosition.Y > InitialPosition.X);
+            bool diagonalSuperior = (InitialPosition.X > InitialPosition.Y);
 
-            //if (y > 0 && y < 501)
-            //{
-            //    int lado = random.Next(2);  // exclusive upperBound
-            //    if (lado == 1)
-            //    {
+            // aqui a funcao que vai cortar a matriz esta espelhada!
+            // caso fique em duvida plote a funcao Y = ( -X + 600 )  
+            // Esse 600 existe porque e o limitante da matriz.... nossa matriz imaginaria e de 600x600
+            bool diagonalInferiorInvertida = (InitialPosition.X > ( ( InitialPosition.Y * -1 ) + 600 ));
+            bool diagonalSuperiorInvertida = (InitialPosition.X < ( ( InitialPosition.Y * -1 ) + 600 ));
 
-            //    }
+            string result = zombie_looking_up; // so pra inicializar
 
-            //}
-            //else
-            //{
-            //}
+            if (diagonalInferior && diagonalInferiorInvertida) // ele esta no quadrante inferior
+                result = zombie_looking_up;
+            if (diagonalInferior && diagonalSuperiorInvertida) // ele esta no quadrante esquerdo
+                result = zombie_looking_right;
+            if (diagonalSuperior && diagonalSuperiorInvertida) // ele esta no quadrante superior
+                result = zombie_looking_down;
+            if (diagonalSuperior && diagonalInferiorInvertida) // ele esta no quadrante direito
+                result = zombie_looking_left;
 
-            return new Vector2(0f, 0f);
-
-
+            return result;
         }
+
+        
 
 
         public void AtualizaPosicao()
