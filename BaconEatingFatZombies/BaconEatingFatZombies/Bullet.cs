@@ -10,6 +10,7 @@ namespace BaconEatingFatZombies
     class bullet : baseSprite
     {
         private Vector2 direction;
+
         public bullet(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, Vector2 newScreensize, Vector2 newDirection)
         {
             texture = newTexture;
@@ -23,10 +24,11 @@ namespace BaconEatingFatZombies
         private const string bullet_looking_down = "bullet-UD";
         private const string bullet_looking_up = "bullet-DU";
         private const string bullet_looking_right = "bullet-LR";
-        private const string bullet_looking_left = "bullet-RL";
+        private const string bullet_looking_left = "bullet-RL";
 
-        public const int alturaTextura = 55;
-        public const int larguraTextura = 55;
+
+        public const int alturaTextura = 44;
+        public const int larguraTextura = 50;
 
         //Baseado no quadrante vai pegar uma imagem diferente
         public static string GetSprite(Vector2 InitialPosition, int maxMatrix)
@@ -59,21 +61,25 @@ namespace BaconEatingFatZombies
 
         public void AtualizaPosicao()
         {
-            Vector2 positionBacon = new Vector2(direction.X, direction.Y);
-           
             float unit = 1.5f;
-                   
 
-            if (position.X > positionBacon.X)
+            //y = mx+b
+
+            // m = ( y2 - y1 / x2 - x1 )
+
+            if (position.X > direction.X)
                 position = new Vector2(position.X - unit, position.Y);
             else
                 position = new Vector2(position.X + unit, position.Y);
 
-            if (position.Y > positionBacon.Y)
+            if (position.Y > direction.Y)
                 position = new Vector2(position.X, position.Y - unit);
             else
                 position = new Vector2(position.X, position.Y + unit);
-        
+
+            if (position.Y == direction.Y && position.X == direction.Y)
+                position = new Vector2(InitialPosition.X, InitialPosition.Y);
+
         }
     }
 }
