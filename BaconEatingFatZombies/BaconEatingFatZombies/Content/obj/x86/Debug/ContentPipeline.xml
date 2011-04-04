@@ -37,6 +37,15 @@
       <Output>C:\Documents and Settings\Pazin\My Documents\XNA\Bacon-Eating-Fat-Zombies\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\Z_UP_PNG.xnb</Output>
       <Time>2011-04-03T10:37:35.9769751-07:00</Time>
     </Item>
+    <Item>
+      <Source>pixel.PNG</Source>
+      <Name>pixel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\Pazin\My Documents\XNA\Bacon-Eating-Fat-Zombies\Bacon-Eating-Fat-Zombies\BaconEatingFatZombies\BaconEatingFatZombies\bin\x86\Debug\Content\pixel.xnb</Output>
+      <Time>2011-04-03T18:35:59.5083452-07:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

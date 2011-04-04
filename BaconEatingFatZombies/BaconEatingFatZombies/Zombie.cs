@@ -16,6 +16,9 @@ namespace BaconEatingFatZombies
         private const string zombie_looking_right = "Z_RIGHT_PNG";
         private const string zombie_looking_left = "Z_LEFT_PNG";
 
+        public const int alturaTextura = 86;
+        public const int larguraTextura = 62;
+
 
         public Texture2D texture { get; set; }
         public Vector2 position { get; set; }
@@ -58,7 +61,7 @@ namespace BaconEatingFatZombies
 
 
         //Baseado no quadrante vai pegar uma imagem diferente
-        public static string GetSprite( Vector2 InitialPosition )
+        public static string GetSprite( Vector2 InitialPosition, int maxMatrix )
         {
             // hack maravilhoso pra descobrir em que setor o vetor esta.
             // esse primeiro teste divide a matriz como se fosse uma matriz diagonal comum
@@ -67,10 +70,11 @@ namespace BaconEatingFatZombies
             bool diagonalSuperior = (InitialPosition.X > InitialPosition.Y);
 
             // aqui a funcao que vai cortar a matriz esta espelhada!
-            // caso fique em duvida plote a funcao Y = ( -X + 600 )  
-            // Esse 600 existe porque e o limitante da matriz.... nossa matriz imaginaria e de 600x600
-            bool diagonalInferiorInvertida = (InitialPosition.X > ( ( InitialPosition.Y * -1 ) + 600 ));
-            bool diagonalSuperiorInvertida = (InitialPosition.X < ( ( InitialPosition.Y * -1 ) + 600 ));
+            // caso fique em duvida plote a funcao Y = ( -X + 900 )  
+            // Esse 900 existe porque e o limitante da matriz.... nossa matriz imaginaria e de 900x900
+
+            bool diagonalInferiorInvertida = (InitialPosition.X > ( ( InitialPosition.Y * -1 ) + maxMatrix ));
+            bool diagonalSuperiorInvertida = (InitialPosition.X < ( ( InitialPosition.Y * -1 ) + maxMatrix ));
 
             string result = zombie_looking_up; // so pra inicializar
 

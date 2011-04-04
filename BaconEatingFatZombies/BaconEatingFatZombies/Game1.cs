@@ -15,16 +15,17 @@ namespace BaconEatingFatZombies
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Texture2D background;
-        List<zombie> listaZumbis = new List<zombie>();
-        KeyboardState keyboard;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Texture2D background;
+        private List<zombie> listaZumbis = new List<zombie>();
+        private List<zombie> listaPixels = new List<zombie>();
+        private KeyboardState keyboard;
+        private Random random = new Random();
+        private Vector2 centro;
 
-        Random random = new Random();
-
-        // aqui fica o bacon
-        Vector2 centro;
+        public int matrixLow { get; set; }
+        public int matrixHigh { get; set; }
 
 
         public Game1()
@@ -41,21 +42,51 @@ namespace BaconEatingFatZombies
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+
         }
 
         protected override void LoadContent()
         {
             centro = new Vector2((Window.ClientBounds.Width / 2), (Window.ClientBounds.Height / 2));
 
+            matrixLow = -200;  // esse vai ser o menor valor da matrix
+            matrixHigh = 700;  // maior valor
+
+
+            // significa que nossa matrix imaginaria vai ser de 900x900
+
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //            background = Content.Load<Texture2D>("foto2");
 
             Vector2 initialPosition = new Vector2(0,0);
+
+
+
+            for (int i = 0; i < 500; i += 2)
+            {
+                listaPixels.Add(new zombie(Content.Load<Texture2D>("pixel"), new Vector2( i, i ), new Vector2(62f, 86f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro));
+            }
+
+            for (int i = 0; i < 500; i += 2)
+            {
+                listaPixels.Add(new zombie(Content.Load<Texture2D>("pixel"), new Vector2( ((i * -1) + 500 ), i), new Vector2(62f, 86f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro));
+            }
+            
+
+
             for (int i = 0; i < 25; i++)
             {
-                initialPosition = this.GetRandomInitialLocation();
+                //Obtendo uma posicao inicial aleatoria
+                initialPosition = this.GetRandomInitialLocation(zombie.larguraTextura, zombie.alturaTextura);
 
-                listaZumbis.Add( new zombie(Content.Load<Texture2D>(zombie.GetSprite(initialPosition)), initialPosition, new Vector2(64f, 64f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro) );
+                //Centralizando a posicao do bicho (descontando o tamanho da imagem)
+                initialPosition = new Vector2(initialPosition.X - (zombie.larguraTextura / 2), initialPosition.Y - (zombie.alturaTextura / 2));
+
+                Texture2D texture = Content.Load<Texture2D>( zombie.GetSprite(initialPosition , this.matrixHigh ) );
+
+                listaZumbis.Add( new zombie(texture, initialPosition, new Vector2(62f, 86f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro) );
             }
 
             //sprite1.velocity = new Vector2(1, 1);
@@ -68,6 +99,11 @@ namespace BaconEatingFatZombies
             {
                 sprite.texture.Dispose();
             }
+            foreach (zombie sprite in listaPixels)
+            {
+                sprite.texture.Dispose();
+            }
+
             spriteBatch.Dispose();
         }
 
@@ -111,6 +147,10 @@ namespace BaconEatingFatZombies
             {
                 sprite.Draw(spriteBatch);
             }
+            foreach (zombie sprite in listaPixels)
+            {
+                sprite.Draw(spriteBatch);
+            }
 
 
             spriteBatch.End();
@@ -119,27 +159,45 @@ namespace BaconEatingFatZombies
         }
 
 
-        public Vector2 GetRandomInitialLocation()
+        public Vector2 GetRandomInitialLocation( int larguraXImagem, int alturaYImagem )
         {
-            
-            int y = random.Next(-100, 600);
+            // apesar da matrix ser de matrixLow x MatrixHigh esses limites tem que ser deslocados por 
+            // que precisamos centralizar a imagem do sprite....
+
+            int y = 0;
             int x = 0;
 
-            if (y > 0 && y < 501)
+
+            int chance = random.Next(2);  // exclusive upperBound
+
+            // criei uma zona de exclusao onde nao sao criados zumbis em no range em Y (100 ate 400)
+            if (chance == 0)
+                y = random.Next(matrixLow - larguraXImagem, 100 - alturaYImagem);
+            else
+                y = random.Next(400 - larguraXImagem, matrixHigh - alturaYImagem);
+
+
+            if (y > (0 - alturaYImagem) && y < (501 - alturaYImagem))
             {
                 int lado = random.Next(2);  // exclusive upperBound
                 if (lado == 0)
                 {
-                    x = random.Next(-100, 0);
+                    x = random.Next(matrixLow - larguraXImagem, 0 - alturaYImagem);
                 }
                 else
                 {
-                    x = random.Next(500, 600);
+                    x = random.Next(500 - larguraXImagem, matrixHigh - alturaYImagem);
                 }
             }
             else
             {
-                x = random.Next(-100, 600);
+                chance = random.Next(2);  // exclusive upperBound
+
+                // outra zona de exclusao onde nao sao criados zumbis em no range em X (100 ate 400)
+                if (chance == 0)
+                    x = random.Next(matrixLow - larguraXImagem, 100 - alturaYImagem);
+                else
+                    x = random.Next(400 - larguraXImagem, matrixHigh - alturaYImagem);
             }
 
             Console.WriteLine("x {0} y {1} ", x, y);
