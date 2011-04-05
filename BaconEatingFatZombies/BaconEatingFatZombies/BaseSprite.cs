@@ -37,6 +37,13 @@ namespace BaconEatingFatZombies
         //Outro componente da equacao da reta
         private float b { get; set; }
 
+        public baseSprite()
+        { 
+            //apenas valores padrao
+            velocity = new Vector2(1, 1);
+        }
+
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GetRealPositionTopLeft(), Color.White);
@@ -51,17 +58,66 @@ namespace BaconEatingFatZombies
             return inc;
         }
 
-        private void calculaEquacaoReta()
+        protected void calculaEquacaoReta()
         {
+            if (destination.X == 0 && InitialPosition.X == 0)
+                throw new Exception("Essa merda ta de treta...");
 
+            float numerador = (destination.Y - InitialPosition.Y);
+            float denominador = (destination.X - InitialPosition.X);
+
+            if (denominador != 0)
+            {
+                this.m = (numerador / denominador);
+                //calculando B a partir da initialPosition
+                this.b = ((m * InitialPosition.X) * -1) + InitialPosition.Y;
+            }
+            else
+            {
+                this.m = 1;  // elemento neutro da multiplicacao
+                this.b = 0;  // elemento neutro da adicao
+            }
+
+
+            //Atualizando a posicao inicial do sprite!
+            position = new Vector2(InitialPosition.X, InitialPosition.Y);
         }
 
-        public Vector2 nextPositionByCoordinate()
+        protected void determinaVelocidade()
         {
-            //y = mx+b
+            float incX = position.X < destination.X ? 1 : -1;
+            float incY = position.Y < destination.Y ? 1 : -1;
 
-            // m = ( y2 - y1 / x2 - x1 )
 
+            // Pode ser que eu tenha que DECREMENTAR a posicao pela velocidade... dependendo de onde se encontra o sprite
+            velocity = new Vector2(velocity.X * incX, velocity.Y * incY);
+        }
+
+        public Vector2 proximaPosicaoPelaEquacaoReta()
+        {
+            Vector2 returnVector;
+
+            // ja chegou ao destino? entao o resultado e o proprio destino
+            if (position.X == destination.X && position.Y == destination.Y)
+                returnVector = position;
+            else
+            {
+                float newX = 0;
+
+                if (this.m == 1 && this.b == 0)
+                {
+                    newX = position.X;  // nao altera
+                }
+                else
+                    newX = position.X + velocity.X;  // vamos comecar incrementando com 1...
+
+                
+                float newY = ( m * newX ) + b;
+
+                returnVector = new Vector2( newX, newY );
+            }
+
+            return returnVector;
         }
     }
 }

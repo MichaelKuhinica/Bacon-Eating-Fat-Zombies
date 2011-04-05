@@ -9,8 +9,6 @@ namespace BaconEatingFatZombies
 {
     class bullet : baseSprite
     {
-        private Vector2 direction;
-
         public bullet(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, Vector2 newScreensize, Vector2 newDirection)
         {
             texture = newTexture;
@@ -18,7 +16,7 @@ namespace BaconEatingFatZombies
             InitialPosition = newPosition;
             size = newSize;
             screensize = newScreensize;
-            direction = newDirection;
+            destination = newDirection;
         }
 
         private const string bullet_looking_down = "bullet-UD";
@@ -61,20 +59,6 @@ namespace BaconEatingFatZombies
 
         public void AtualizaPosicao()
         {
-            float unit = 1.5f;
-
-            if (position.X > direction.X)
-                position = new Vector2(position.X - unit, position.Y);
-            else
-                position = new Vector2(position.X + unit, position.Y);
-
-            if (position.Y > direction.Y)
-                position = new Vector2(position.X, position.Y - unit);
-            else
-                position = new Vector2(position.X, position.Y + unit);
-
-            if (position.Y == direction.Y && position.X == direction.Y)
-                position = new Vector2(InitialPosition.X, InitialPosition.Y);
 
         }
     }
