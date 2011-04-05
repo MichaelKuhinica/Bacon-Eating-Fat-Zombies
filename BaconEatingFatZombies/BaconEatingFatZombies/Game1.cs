@@ -25,22 +25,27 @@ using System;using System.Collections.Generic;using System.Linq;using Microso
                         new Vector2(centro.X + 15, centro.Y),
                         new Vector2(62f, 86f),
                         graphics.PreferredBackBufferWidth,
-                        graphics.PreferredBackBufferHeight));            for (int i = 0; i < 5; i++)            {                //Obtendo uma posicao inicial aleatoria                initialPosition = this.GetRandomInitialLocation(zombie.larguraTextura, zombie.alturaTextura);                //Centralizando a posicao do bicho (descontando o tamanho da imagem)                initialPosition = new Vector2(initialPosition.X, initialPosition.Y);                Texture2D texture = Content.Load<Texture2D>( zombie.GetSprite(initialPosition , this.matrixHigh ) );                listaZumbis.Add( new zombie(texture, initialPosition, new Vector2(62f, 86f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro) );            }
+                        graphics.PreferredBackBufferHeight));            for (int i = 0; i < 25; i++)            {                //Obtendo uma posicao inicial aleatoria                initialPosition = this.GetRandomInitialLocation(zombie.larguraTextura, zombie.alturaTextura);                //Centralizando a posicao do bicho (descontando o tamanho da imagem)                initialPosition = new Vector2(initialPosition.X, initialPosition.Y);                Texture2D texture = Content.Load<Texture2D>( zombie.GetSprite(initialPosition , this.matrixHigh ) );                listaZumbis.Add( new zombie(texture, initialPosition, new Vector2(62f, 86f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, centro) );            }
 
 
 
-            for (int i = 0; i < 3; i++)
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    initialPosition = this.GetRandomInitialLocation(bullet.larguraTextura, bullet.alturaTextura);
+            //    Texture2D texture = Content.Load<Texture2D>( bullet.bullet_E );
+            //    listaBalas.Add(new bullet(
+            //        texture,
+            //        initialPosition,
+            //        new Vector2(62f, 86f),
+            //        new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),
+            //        centro
+            //    ));
+            //}            //sprite1.velocity = new Vector2(1, 1);        }        protected override void UnloadContent()        {            // TODO: Unload any non ContentManager content here            foreach (zombie sprite in listaZumbis)            {                sprite.texture.Dispose();            }
+
+            foreach (bullet sprite in listaBalas)
             {
-                initialPosition = this.GetRandomInitialLocation(bullet.larguraTextura, bullet.alturaTextura);
-                Texture2D texture = Content.Load<Texture2D>( bullet.bullet_E );
-                listaBalas.Add(new bullet(
-                    texture,
-                    initialPosition,
-                    new Vector2(62f, 86f),
-                    new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),
-                    centro
-                ));
-            }            //sprite1.velocity = new Vector2(1, 1);        }        protected override void UnloadContent()        {            // TODO: Unload any non ContentManager content here            foreach (zombie sprite in listaZumbis)            {                sprite.texture.Dispose();            }            //foreach (bullet sprite in listaBalas)            //{            //    sprite.texture.Dispose();            //}            spriteBatch.Dispose();        }        /// <summary>        /// Allows the game to run logic such as updating the world,        /// checking for collisions, gathering input, and playing audio.        /// </summary>        /// <param name="gameTime">Provides a snapshot of timing values.</param>        protected override void Update(GameTime gameTime)        {            // Allows the game to exit            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)                this.Exit();            KeyboardState keyboard = Keyboard.GetState();            //            if (keyboard.IsKeyDown(Keys.Right))            //                sprite1.MoveDireita();
+                sprite.texture.Dispose();
+            }            spriteBatch.Dispose();        }        /// <summary>        /// Allows the game to run logic such as updating the world,        /// checking for collisions, gathering input, and playing audio.        /// </summary>        /// <param name="gameTime">Provides a snapshot of timing values.</param>        protected override void Update(GameTime gameTime)        {            // Allows the game to exit            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)                this.Exit();            KeyboardState keyboard = Keyboard.GetState();            //            if (keyboard.IsKeyDown(Keys.Right))            //                sprite1.MoveDireita();
 
 
 
