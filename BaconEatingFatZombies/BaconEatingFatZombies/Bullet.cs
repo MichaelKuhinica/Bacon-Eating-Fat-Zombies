@@ -63,10 +63,6 @@ namespace BaconEatingFatZombies
         {
             float unit = 1.5f;
 
-            //y = mx+b
-
-            // m = ( y2 - y1 / x2 - x1 )
-
             if (position.X > direction.X)
                 position = new Vector2(position.X - unit, position.Y);
             else

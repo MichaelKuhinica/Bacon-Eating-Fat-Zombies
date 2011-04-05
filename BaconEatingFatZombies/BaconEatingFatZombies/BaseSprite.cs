@@ -27,8 +27,15 @@ namespace BaconEatingFatZombies
 
         public Texture2D texture { get; set; }
         public Vector2 position { get; set; }
+        public Vector2 destination { get; set; }
         public Vector2 size { get; set; }
         protected Vector2 InitialPosition { get; set; }
+        
+        //Componente da equacao da reta
+        private float m { get; set; }
+
+        //Outro componente da equacao da reta
+        private float b { get; set; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -42,6 +49,19 @@ namespace BaconEatingFatZombies
         {
             Vector2 inc = new Vector2(position.X - (texture.Width / 2), position.Y - (texture.Height / 2));
             return inc;
+        }
+
+        private void calculaEquacaoReta()
+        {
+
+        }
+
+        public Vector2 nextPositionByCoordinate()
+        {
+            //y = mx+b
+
+            // m = ( y2 - y1 / x2 - x1 )
+
         }
     }
 }
