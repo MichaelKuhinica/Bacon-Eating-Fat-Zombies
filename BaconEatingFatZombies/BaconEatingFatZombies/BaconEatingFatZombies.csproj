@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bacon.cs" />
     <Compile Include="BaseSprite.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

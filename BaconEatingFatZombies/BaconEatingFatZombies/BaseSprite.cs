@@ -47,6 +47,8 @@ namespace BaconEatingFatZombies
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, GetRealPositionTopLeft(), Color.White);
+
+            // lembrar de usar outra assinatura do metodo DRAW pra poder especificar que o Bacon fica por baixo do zumbi...
         }
 
 

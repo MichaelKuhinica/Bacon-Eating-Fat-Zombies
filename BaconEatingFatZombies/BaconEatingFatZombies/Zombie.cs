@@ -1,6 +1,6 @@
 ﻿using System;using System.Collections.Generic;using System.Linq;using System.Text;using Microsoft.Xna.Framework;using Microsoft.Xna.Framework.Graphics;namespace BaconEatingFatZombies{    class zombie : baseSprite    {        private const string zombie_looking_down = "Z_DOWN_PNG";        private const string zombie_looking_up = "Z_UP_PNG";        private const string zombie_looking_right = "Z_RIGHT_PNG";        private const string zombie_looking_left = "Z_LEFT_PNG";        public const int alturaTextura = 86;        public const int larguraTextura = 62;
 
-        private bool colidiuBacon { get; set; }        public zombie(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, int screensizeWidth, int screensizeHeight, Vector2 pPosBacon)        {            texture = newTexture;            position = newPosition;
+        public bool colidiuBacon { get; set; }        public zombie(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, int screensizeWidth, int screensizeHeight, Vector2 pPosBacon)        {            texture = newTexture;            position = newPosition;
             InitialPosition = position;            size = newSize;            screensize = new Vector2(screensizeWidth, screensizeHeight);            destination = pPosBacon;
 
             determinaVelocidade();
