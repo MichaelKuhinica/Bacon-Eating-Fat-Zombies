@@ -32,7 +32,7 @@ using System;using System.Collections.Generic;using System.Linq;using Microso
             for (int i = 0; i < 3; i++)
             {
                 initialPosition = this.GetRandomInitialLocation(bullet.larguraTextura, bullet.alturaTextura);
-                Texture2D texture = Content.Load<Texture2D>("bullet");
+                Texture2D texture = Content.Load<Texture2D>( bullet.bullet_E );
                 listaBalas.Add(new bullet(
                     texture,
                     initialPosition,

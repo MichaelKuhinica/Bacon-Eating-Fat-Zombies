@@ -27,14 +27,14 @@ namespace BaconEatingFatZombies
             calculaEquacaoReta();        }
 
         //nomes dos arquivos das bullets usando coordenadas cartesianas ( Norte, Sul, blablabla )
-        private const string bullet_N = "bullet-N";
-        private const string bullet_S = "bullet-S";
-        private const string bullet_E = "bullet-E";
-        private const string bullet_W = "bullet-W";
-        private const string bullet_SW = "bullet-SW";
-        private const string bullet_SE = "bullet-SE";
-        private const string bullet_NW = "bullet-NW";
-        private const string bullet_NE = "bullet-NE";
+        public const string bullet_N = "bullet-N";
+        public const string bullet_S = "bullet-S";
+        public const string bullet_E = "bullet-E";
+        public const string bullet_W = "bullet-W";
+        public const string bullet_SW = "bullet-SW";
+        public const string bullet_SE = "bullet-SE";
+        public const string bullet_NW = "bullet-NW";
+        public const string bullet_NE = "bullet-NE";
         
         public const int alturaTextura = 44;
         public const int larguraTextura = 50;
