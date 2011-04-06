@@ -121,5 +121,32 @@ namespace BaconEatingFatZombies
 
             return returnVector;
         }
+
+        protected void MoveTo(Vector2 newPosition) {            if (!ColidiuParede(newPosition))            {                position = newPosition;            }        }
+
+        public void MoveLeste()
+        {
+            MoveTo(new Vector2(position.X + velocity.X, position.Y));
+        }
+
+        public void MoveOeste()
+        {
+            MoveTo(new Vector2(position.X - velocity.X, position.Y));
+        }
+
+        public void MoveSul()
+        {
+            MoveTo(new Vector2(position.X, position.Y + velocity.Y));
+        }
+
+        public void MoveNorte()
+        {
+            MoveTo(new Vector2(position.X, position.Y - velocity.Y));
+        }
+
+        protected virtual bool ColidiuParede(Vector2 newPosition) {
+            return !(newPosition.X > size.X / 2 && newPosition.X < screensize.X - (size.X / 2)
+                && newPosition.Y > size.X / 2 && newPosition.Y < screensize.Y - (size.X / 2));
+        }
     }
 }
