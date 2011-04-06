@@ -113,8 +113,43 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="link.png">
-      <Name>link</Name>
+    <Compile Include="link-E.png">
+      <Name>link-E</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="link-N.png">
+      <Name>link-N</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="link-NE.png">
+      <Name>link-NE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="link-NW.png">
+      <Name>link-NW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="link-S.png">
+      <Name>link-S</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="link-SE.png">
+      <Name>link-SE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="link-SW.png">
+      <Name>link-SW</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="link-W.png">
+      <Name>link-W</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

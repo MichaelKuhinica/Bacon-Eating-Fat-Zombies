@@ -36,9 +36,27 @@
                 {
                     MoveLeste();
                 }
-                else
+                else if("W".Equals(direcaoCartesiana))
                 {
                     MoveOeste();
+                } else if("NW".Equals(direcaoCartesiana)) {
+                    MoveNorte();
+                    MoveOeste();
+                }
+                else if ("NE".Equals(direcaoCartesiana))
+                {
+                    MoveNorte();
+                    MoveLeste();
+                }
+                else if ("SW".Equals(direcaoCartesiana))
+                {
+                    MoveSul();
+                    MoveOeste();
+                }
+                else if ("SE".Equals(direcaoCartesiana))
+                {
+                    MoveSul();
+                    MoveLeste();
                 }
                 //Vector2 newPosition = proximaPosicaoPelaEquacaoReta();
                 //if (!ColidiuParede(newPosition))
