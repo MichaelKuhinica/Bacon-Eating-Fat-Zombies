@@ -32,10 +32,10 @@ namespace BaconEatingFatZombies
         protected Vector2 InitialPosition { get; set; }
         
         //Componente da equacao da reta
-        private float m { get; set; }
+        public float m { get; set; }
 
         //Outro componente da equacao da reta
-        private float b { get; set; }
+        public float b { get; set; }
 
         public baseSprite()
         { 
@@ -123,7 +123,7 @@ namespace BaconEatingFatZombies
             return returnVector;
         }
 
-        protected void MoveTo(Vector2 newPosition) {            if (!ColidiuParede(newPosition))            {                position = newPosition;            }        }
+        protected void MoveTo(Vector2 newPosition)         {            if (!ColidiuParede(newPosition))            {                position = newPosition;            }        }
 
         public void MoveLeste()
         {
@@ -148,6 +148,7 @@ namespace BaconEatingFatZombies
         protected virtual bool ColidiuParede(Vector2 newPosition) {
             return !(newPosition.X > size.X / 2 && newPosition.X < screensize.X - (size.X / 2)
                 && newPosition.Y > size.X / 2 && newPosition.Y < screensize.Y - (size.X / 2));
+   
         }
     }
 }
