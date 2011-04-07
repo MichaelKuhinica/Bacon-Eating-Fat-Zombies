@@ -87,8 +87,9 @@ namespace BaconEatingFatZombies
 
         protected void determinaVelocidade()
         {
-            float incX = position.X < destination.X ? 1 : -1;
-            float incY = position.Y < destination.Y ? 1 : -1;
+            float vConst = 0.4f;
+            float incX = position.X < destination.X ? vConst : vConst*-1;
+            float incY = position.Y < destination.Y ? vConst : vConst*-1;
 
 
             // Pode ser que eu tenha que DECREMENTAR a posicao pela velocidade... dependendo de onde se encontra o sprite
