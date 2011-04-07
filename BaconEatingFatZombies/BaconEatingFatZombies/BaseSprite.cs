@@ -13,18 +13,26 @@ namespace BaconEatingFatZombies
         public Vector2 screensize { get; set; }
         public Vector2 velocity { get; set; }
 
+        private Rectangle m_rec;
+
         public Rectangle BoundingBox
         {
             get
             {
-                return new Rectangle(
-                    (int)GetRealPositionTopLeft().X,
-                    (int)GetRealPositionTopLeft().Y,
-                    texture.Width,
-                    texture.Height);
+                if (m_rec != null)
+                    return m_rec;
+                else
+                    return new Rectangle(
+                        (int)position.X,
+                        (int)position.Y,
+                        texture.Width,
+                        texture.Height);
             }
 
-            set;
+            set
+            {
+                m_rec = value;
+            }
         }
 
         public Texture2D texture { get; set; }
@@ -32,7 +40,7 @@ namespace BaconEatingFatZombies
         public Vector2 destination { get; set; }
         public Vector2 size { get; set; }
         protected Vector2 InitialPosition { get; set; }
-        
+
         //Componente da equacao da reta
         public float m { get; set; }
 
@@ -40,12 +48,19 @@ namespace BaconEatingFatZombies
         public float b { get; set; }
 
         public baseSprite()
-        { 
+        {
             //apenas valores padrao
             velocity = new Vector2(1, 1);
         }
 
-        public baseSprite(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, int screensizeWidth, int screensizeHeight)        {            texture = newTexture;            position = newPosition;            InitialPosition = position;            size = newSize;            screensize = new Vector2(screensizeWidth, screensizeHeight);        }
+        public baseSprite(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, int screensizeWidth, int screensizeHeight)
+        {
+            texture = newTexture;
+            position = newPosition;
+            InitialPosition = position;
+            size = newSize;
+            screensize = new Vector2(screensizeWidth, screensizeHeight);
+        }
 
 
         public void Draw(SpriteBatch spriteBatch)
@@ -98,8 +113,8 @@ namespace BaconEatingFatZombies
             //float vConst = (float)r.Next(5)/10;
             float vConst = 0.4f;
 
-            float incX = position.X < destination.X ? vConst : vConst*-1;
-            float incY = position.Y < destination.Y ? vConst : vConst*-1;
+            float incX = position.X < destination.X ? vConst : vConst * -1;
+            float incY = position.Y < destination.Y ? vConst : vConst * -1;
 
 
             // Pode ser que eu tenha que DECREMENTAR a posicao pela velocidade... dependendo de onde se encontra o sprite
@@ -124,16 +139,22 @@ namespace BaconEatingFatZombies
                 else
                     newX = position.X + velocity.X;  // vamos comecar incrementando com 1...
 
-                
-                float newY = ( m * newX ) + b;
 
-                returnVector = new Vector2( newX, newY );
+                float newY = (m * newX) + b;
+
+                returnVector = new Vector2(newX, newY);
             }
 
             return returnVector;
         }
 
-        protected void MoveTo(Vector2 newPosition)         {            if (!ColidiuParede(newPosition))            {                position = newPosition;            }        }
+        protected void MoveTo(Vector2 newPosition)
+        {
+            if (!ColidiuParede(newPosition))
+            {
+                position = newPosition;
+            }
+        }
 
         public void MoveLeste()
         {
@@ -155,10 +176,11 @@ namespace BaconEatingFatZombies
             MoveTo(new Vector2(position.X, position.Y - velocity.Y));
         }
 
-        protected virtual bool ColidiuParede(Vector2 newPosition) {
+        protected virtual bool ColidiuParede(Vector2 newPosition)
+        {
             return !(newPosition.X > size.X / 2 && newPosition.X < screensize.X - (size.X / 2)
                 && newPosition.Y > size.X / 2 && newPosition.Y < screensize.Y - (size.X / 2));
-   
+
         }
     }
 }
