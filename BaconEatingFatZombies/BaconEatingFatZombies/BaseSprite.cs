@@ -18,11 +18,13 @@ namespace BaconEatingFatZombies
             get
             {
                 return new Rectangle(
-                    (int)position.X,
-                    (int)position.Y,
+                    (int)GetRealPositionTopLeft().X,
+                    (int)GetRealPositionTopLeft().Y,
                     texture.Width,
                     texture.Height);
             }
+
+            set;
         }
 
         public Texture2D texture { get; set; }
@@ -42,6 +44,8 @@ namespace BaconEatingFatZombies
             //apenas valores padrao
             velocity = new Vector2(1, 1);
         }
+
+        public baseSprite(Texture2D newTexture, Vector2 newPosition, Vector2 newSize, int screensizeWidth, int screensizeHeight)        {            texture = newTexture;            position = newPosition;            InitialPosition = position;            size = newSize;            screensize = new Vector2(screensizeWidth, screensizeHeight);        }
 
 
         public void Draw(SpriteBatch spriteBatch)
