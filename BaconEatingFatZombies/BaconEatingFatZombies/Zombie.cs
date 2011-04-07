@@ -18,4 +18,4 @@
             if (!colidiuBacon)
                 position = proximaPosicaoPelaEquacaoReta();
             else            {
-                jaComeu = true;            //    MorreDiabo(texture, InitialPosition);            }                        }    }}
+                jaComeu = true;                //MorreDiabo(texture, InitialPosition);            }                        }    }}

@@ -13,18 +13,26 @@ namespace BaconEatingFatZombies
         public Vector2 screensize { get; set; }
         public Vector2 velocity { get; set; }
 
+        private Rectangle m_rec;
+
         public Rectangle BoundingBox
         {
             get
             {
-                return new Rectangle(
-                    (int)GetRealPositionTopLeft().X,
-                    (int)GetRealPositionTopLeft().Y,
-                    texture.Width,
-                    texture.Height);
+                if (m_rec != null)
+                    return m_rec;
+                else
+                    return new Rectangle(
+                        (int)position.X,
+                        (int)position.Y,
+                        texture.Width,
+                        texture.Height);
             }
 
-            set;
+            set
+            {
+                m_rec = value;
+            }
         }
 
         public Texture2D texture { get; set; }
