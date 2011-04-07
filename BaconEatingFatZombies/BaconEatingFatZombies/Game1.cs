@@ -27,6 +27,8 @@ namespace BaconEatingFatZombies
         //private List<zombie> listaPixels = new List<zombie>();
         private List<bullet> listaBalas = new List<bullet>();
 
+        private SpriteFont scores;
+        private String scoreString;
 
         private KeyboardState keyboard;
         private Random random = new Random();
@@ -75,6 +77,8 @@ namespace BaconEatingFatZombies
 
             Vector2 initialPosition = new Vector2(0, 0);
 
+            scores = Content.Load<SpriteFont>("sans");
+            scoreString = "Pontos: ";
 
             Dictionary<string, Texture2D> textureDict = new Dictionary<string, Texture2D>();
             textureDict.Add("N", Content.Load<Texture2D>("link-N"));
@@ -175,8 +179,7 @@ namespace BaconEatingFatZombies
                 this.Exit();
 
             KeyboardState keyboard = Keyboard.GetState();
-
-
+            scoreString = "Pontos: "+player.position.X;
             if ((gameTime.TotalGameTime - ultimoTempo) > intervaloCoolDown)
                 coolDownArma = false;
 
@@ -279,6 +282,8 @@ namespace BaconEatingFatZombies
             }
 
             player.Draw(spriteBatch);
+
+            spriteBatch.DrawString(scores, scoreString, new Vector2(5f, 5f), Color.Red);
 
             spriteBatch.End();
 
