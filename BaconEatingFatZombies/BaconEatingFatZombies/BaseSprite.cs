@@ -87,7 +87,9 @@ namespace BaconEatingFatZombies
 
         protected void determinaVelocidade()
         {
-            float vConst = 0.4f;
+            Random r = new Random();
+            float vConst = (float)r.Next(5)/10;
+            
             float incX = position.X < destination.X ? vConst : vConst*-1;
             float incY = position.Y < destination.Y ? vConst : vConst*-1;
 
