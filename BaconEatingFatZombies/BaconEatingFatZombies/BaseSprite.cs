@@ -73,11 +73,14 @@ namespace BaconEatingFatZombies
                 this.m = (numerador / denominador);
                 //calculando B a partir da initialPosition
                 this.b = ((m * InitialPosition.X) * -1) + InitialPosition.Y;
+
+                Console.WriteLine(" calcula: " + numerador + " " + denominador + " " + m + " " + b);
             }
             else
             {
                 this.m = 1;  // elemento neutro da multiplicacao
                 this.b = 0;  // elemento neutro da adicao
+                Console.WriteLine(" zerou! ");
             }
 
 
@@ -87,15 +90,16 @@ namespace BaconEatingFatZombies
 
         protected void determinaVelocidade()
         {
-            Random r = new Random();
-            float vConst = (float)r.Next(5)/10;
-            
+            //Random r = new Random();
+            //float vConst = (float)r.Next(5)/10;
+            float vConst = 0.4f;
+
             float incX = position.X < destination.X ? vConst : vConst*-1;
             float incY = position.Y < destination.Y ? vConst : vConst*-1;
 
 
             // Pode ser que eu tenha que DECREMENTAR a posicao pela velocidade... dependendo de onde se encontra o sprite
-            velocity = new Vector2(velocity.X * incX, velocity.Y * incY);
+            velocity = new Vector2(1 * incX, 1 * incY);
         }
 
         public Vector2 proximaPosicaoPelaEquacaoReta()
