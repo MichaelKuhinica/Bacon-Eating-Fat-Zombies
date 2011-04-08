@@ -18,12 +18,14 @@ namespace BaconEatingFatZombies
             position = newPosition;
             InitialPosition = position;
             size = newSize;
+            comido = false;
             screensize = new Vector2(screensizeWidth, screensizeHeight);
         }
 
         public void MorreDiabo()
         {
             position = new Vector2(-10f, -10f);
+            comido = true;
         }
     }
 }

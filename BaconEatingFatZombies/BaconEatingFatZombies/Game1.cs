@@ -30,6 +30,7 @@ namespace BaconEatingFatZombies
         private SpriteFont scores;
         private String scoreString;
 
+        private int numberBacons = 3;
         private KeyboardState keyboard;
         private Random random = new Random();
         private Vector2 centro;
@@ -39,10 +40,16 @@ namespace BaconEatingFatZombies
 
         //Os tiros tem que ter um intervalo entre eles... por isso um cool down.
         private bool coolDownArma { get; set; }
+        private bool coolDownSFX { get; set; }
 
         private TimeSpan intervaloCoolDown = new TimeSpan(0, 0, 0, 0, 450);
         private TimeSpan ultimoTempo;
         private int zombieNumber = 25;
+        private int scoreNumber = 0;
+        private bool playing = false;
+        private bool gameOver = false;
+        private SoundEffect sf;
+
 
         public Game1()
         {
@@ -72,6 +79,9 @@ namespace BaconEatingFatZombies
             // significa que nossa matrix imaginaria vai ser de 900x900
 
 
+            sf = Content.Load<SoundEffect>("chomp");
+
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //            background = Content.Load<Texture2D>("foto2");
 
@@ -96,10 +106,10 @@ namespace BaconEatingFatZombies
                 );
 
 
-            centroTela = new baseSprite(null, new Vector2(250, 250), new Vector2(20, 20), graphics.PreferredBackBufferWidth,
-                        graphics.PreferredBackBufferHeight);
+            //centroTela = new baseSprite(null, new Vector2(250, 250), new Vector2(20, 20), graphics.PreferredBackBufferWidth,
+            //            graphics.PreferredBackBufferHeight);
 
-            centroTela.BoundingBox = new Rectangle((int)centroTela.position.X, (int)centroTela.position.Y, 20, 20);
+            //centroTela.BoundingBox = new Rectangle((int)centroTela.position.X, (int)centroTela.position.Y, 20, 20);
 
 
 
@@ -177,83 +187,122 @@ namespace BaconEatingFatZombies
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
-            KeyboardState keyboard = Keyboard.GetState();
-            scoreString = "Pontos: "+player.position.X;
-            if ((gameTime.TotalGameTime - ultimoTempo) > intervaloCoolDown)
-                coolDownArma = false;
-
-            player.AtualizaPosicao(keyboard);
-
-            if (keyboard.IsKeyDown(Keys.Space) && !coolDownArma)  // so vou disparar novamente quando o cool down acabar
+            int count = 0;
+            foreach (bacon tira in listaBacon)
             {
-
-                coolDownArma = true;
-                ultimoTempo = gameTime.TotalGameTime;
-
-                bullet minhaBala = new bullet(Content.Load<Texture2D>("bullet-" + player.direcaoCarteseana),
-                    player.position,
-                    new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),
-                    player.direcaoCarteseana
-                );
-                listaBalas.Add(minhaBala);
-
+                if (tira.comido)
+                    count++;
             }
-
-
-            //primeiro desenha a porra toda
-            foreach (zombie sprite in listaZumbis)
+            
+                gameOver = count >= 3;
+            
+            if (!gameOver)
             {
-                sprite.AtualizaPosicao();
-            }
+                
 
-            foreach (bullet bala in listaBalas)
-            {
-                bala.AtualizaPosicao();
-            }
+                KeyboardState keyboard = Keyboard.GetState();
+                scoreString = "Pontos: " + scoreNumber;
+                if ((gameTime.TotalGameTime - ultimoTempo) > intervaloCoolDown)
+                    coolDownArma = false;
+
+                player.AtualizaPosicao(keyboard);
+
+                if (keyboard.IsKeyDown(Keys.Space) && !coolDownArma)  // so vou disparar novamente quando o cool down acabar
+                {
+
+                    coolDownArma = true;
+                    ultimoTempo = gameTime.TotalGameTime;
+
+                    bullet minhaBala = new bullet(Content.Load<Texture2D>("bullet-" + player.direcaoCarteseana),
+                        player.position,
+                        new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),
+                        player.direcaoCarteseana
+                    );
+                    listaBalas.Add(minhaBala);
+
+                }
 
 
+                //primeiro desenha a porra toda
+                foreach (zombie sprite in listaZumbis)
+                {
+                    sprite.AtualizaPosicao();
+                }
 
-            // agora testa colisao com as balas
-            foreach (zombie sprite in listaZumbis)
-            {
                 foreach (bullet bala in listaBalas)
                 {
-                    if (!sprite.morto && bala.BoundingBox.Intersects(sprite.BoundingBox))
+                    bala.AtualizaPosicao();
+                }
+
+
+                bullet pointer = null;
+
+                // agora testa colisao com as balas
+                foreach (zombie sprite in listaZumbis)
+                {
+                    foreach (bullet bala in listaBalas)
                     {
-                        //bala.colidiuZumbi = true;
-                        Vector2 newLocation = this.GetRandomInitialLocation(zombie.larguraTextura, zombie.alturaTextura);
-                        //Vector2 newLocation = new Vector2(400,250);
-                        sprite.MorreDiabo(Content.Load<Texture2D>(zombie.GetSprite(newLocation, matrixHigh)), newLocation);
+                        if (bala.BoundingBox.Intersects(sprite.BoundingBox))
+                        {
+                            bala.colidiuZumbi = true;
+                            pointer = bala;
+                            Vector2 newLocation = this.GetRandomInitialLocation(zombie.larguraTextura, zombie.alturaTextura);
+                            //Vector2 newLocation = new Vector2(400,250);
+                            sprite.MorreDiabo(Content.Load<Texture2D>(zombie.GetSprite(newLocation, matrixHigh)), newLocation);
+                            scoreNumber = scoreNumber + 10;
+                        }
                     }
                 }
+                if (pointer != null)
+                {
+                    pointer.position = new Vector2(-50f, -50f);
+                }
+
+
+
+                if ((gameTime.TotalGameTime - ultimoTempo) > intervaloCoolDown)
+                    coolDownSFX = false;
+                
+                // agora testa colisao com os bacon!
+                foreach (zombie sprite in listaZumbis)
+                {
+                    if (numberBacons > 0)
+                    {
+                        foreach (bacon tira in listaBacon)
+                        {
+                            if (tira.BoundingBox.Intersects(sprite.BoundingBox))
+                            {
+                                sprite.colidiuBacon = true;
+                                tira.MorreDiabo();
+
+                                if (!coolDownSFX)
+                                {
+                                    coolDownSFX = true;
+                                    sf.Play();
+                                }
+                                
+                                sprite.MorreDiabo(sprite.texture, sprite.InitialPosition);
+                                //sprite.jaComeu = true;
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        gameOver = true;
+                    }
+
+
+
+                }
+
+
+                base.Update(gameTime);
             }
-            SoundEffect sf = Content.Load<SoundEffect>("chomp");
-            // agora testa colisao com os bacon!
-            foreach (zombie sprite in listaZumbis)
+            else
             {
-                foreach (bacon tira in listaBacon)
-                {
-                    if (tira.BoundingBox.Intersects(sprite.BoundingBox))
-                    {
-                        sprite.colidiuBacon = true;
-                        tira.MorreDiabo();
-                        sf.Play();
-                        sprite.jaComeu = true;
-                    }
-
-                }
-
-                // maneira de parar o zumbi quando ele chegar nos arredores do centro da tela...
-                if (centroTela.BoundingBox.Intersects(sprite.BoundingBox))
-                {
-                    sprite.position = new Vector2(sprite.destination.X, sprite.destination.Y);
-                }
-
+                scoreString = "GAME OVER!";
             }
-
-
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -288,6 +337,11 @@ namespace BaconEatingFatZombies
             spriteBatch.End();
 
             base.Draw(gameTime);
+
+            
+             
+            
+
         }
 
 
@@ -312,7 +366,18 @@ namespace BaconEatingFatZombies
             }
             else
             {
-                x = random.Next(matrixLow, matrixHigh);
+                int chance = random.Next(2);
+
+                if (chance == 0)
+                {
+                    x = random.Next(matrixLow, 170);
+                }
+                else
+                {
+                    x = random.Next(330, matrixHigh);
+                }
+
+                
             }
 
             //Console.WriteLine("x {0} y {1} ", x, y);

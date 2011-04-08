@@ -68,11 +68,7 @@ namespace BaconEatingFatZombies
 
         public void MorreDiabo(Texture2D newTexture, Vector2 newPosition)
         {
-            morto = true;
-
-            Console.WriteLine(" 1_ " + InitialPosition + " " + position + " " + destination + " : " + m + " " + b + " " + velocity.X + " " + velocity.Y);
-
-
+            
             texture = newTexture;
             position = newPosition;
             InitialPosition = newPosition;
@@ -80,10 +76,6 @@ namespace BaconEatingFatZombies
 
             calculaEquacaoReta();
             determinaVelocidade();
-
-            Console.WriteLine(" 2_ " + InitialPosition + " " + position + " " + destination + " : " + m + " " + b + " " + velocity.X + " " + velocity.Y);
-
-            morto = false;
         }
 
 
